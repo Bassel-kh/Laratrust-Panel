@@ -13,18 +13,27 @@ class CreateRegisterRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array
-     */
     public function rules()
     {
         return [
-            //
+            'username' => 'required|min:2|max:34|unique:users|alpha_dash',
+            'password' => 'required|min:8|max:32|confirmed',
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'username.required' => 'Username required.',
+            'username.unique' => 'Username already in use.',
+            'username.min' => 'Username needs to be above 1',
+            'username.max' => 'Username needs to be below 35',
+            'password.required' => 'Password required.',
+            'password.min' => 'Password needs to be above 7',
+            'password.max' => 'Username needs to be below 35',
         ];
     }
 }
